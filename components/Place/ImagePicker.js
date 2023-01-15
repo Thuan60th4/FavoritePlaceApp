@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Colors } from "../../constants/colors";
 import CustomButton from "../UI/CustomButton";
 
-function ImagePicker() {
+function ImagePicker({ handleImage }) {
   const [cameraPermissionStatus, requestCameraPermission] =
     useCameraPermissions();
 
@@ -41,6 +41,7 @@ function ImagePicker() {
       quality: 0.5,
     });
     setImageUri(image.assets[0].uri);
+    handleImage(image.assets[0].uri);
   };
   return (
     <View>

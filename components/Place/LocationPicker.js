@@ -8,14 +8,17 @@ import {
 import { Colors } from "../../constants/colors";
 import CustomButton from "../UI/CustomButton";
 import { getMapPreview } from "../../util/location";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-function LocationPicker() {
+function LocationPicker({ handleLocation }) {
+  const navigation = useNavigation();
+  const route = useRoute();
+
   const [locationPermissionStatus, requestLocationPermission] =
     useForegroundPermissions();
+
   const [pickLocation, setPickLocation] = useState();
-  const navigation = useNavigation();
 
   const verifyPermissions = async () => {
     if (locationPermissionStatus.status == PermissionStatus.UNDETERMINED) {
@@ -31,6 +34,19 @@ function LocationPicker() {
     }
     return true;
   };
+
+  useEffect(() => {
+    if (route.params) {
+      setPickLocation({
+        lat: route.params.latitude,
+        lng: route.params.longitude,
+      });
+    }
+  }, [route.params]);
+
+  useEffect(() => {
+    if (pickLocation) handleLocation(pickLocation);
+  }, [pickLocation]);
 
   const getLocationhandle = async () => {
     const hasPermission = await verifyPermissions();

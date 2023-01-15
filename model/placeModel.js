@@ -1,6 +1,6 @@
-class placeModel {
+export default class placeModel {
   constructor(title, imageUri, address, location) {
-    this.id = Math.random().toString;
+    this.id = Math.random().toString();
     this.title = title;
     this.imageUri = imageUri;
     this.address = address;

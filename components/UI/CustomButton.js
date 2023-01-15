@@ -2,9 +2,9 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../constants/colors";
 
-function CustomButton({ icon, children, onPress }) {
+function CustomButton({ icon, children, onPress, style }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Pressable
         style={({ pressed }) => [styles.pressable, pressed && { opacity: 0.7 }]}
         onPress={onPress}
