@@ -1,11 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/colors";
 
 function PlaceItem({ place }) {
+  const navigation = useNavigation();
   return (
     <Pressable
       style={({ pressed }) => [styles.container, pressed && { opacity: 0.7 }]}
       android_ripple={{ color: Colors.primary400 }}
+      onPress={() => {
+        navigation.navigate("DetailPlace", { id: place.id });
+      }}
     >
       <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.info}>
@@ -21,6 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: Colors.primary500,
     margin: 20,
+    marginBottom: 7,
     borderRadius: 7,
     elevation: 8,
     shadowColor: "black",

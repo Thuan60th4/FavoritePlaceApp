@@ -1,14 +1,24 @@
+import { Alert } from "react-native";
 import PlaceForm from "../components/Place/PlaceForm";
-import placeModel from "../model/placeModel";
+import { InsertPlace } from "../util/database";
 
 function AddPlaceScreen({ navigation }) {
-  const handleAddPlaceToList = ({
+  const handleAddPlaceToList = async ({
     titleValue,
     imageValue,
     locationValue: { address, ...location },
   }) => {
-    const place = new placeModel(titleValue, imageValue, address, location);
-    navigation.navigate("AllPlace", place);
+    try {
+      const result = await InsertPlace({
+        titleValue,
+        imageValue,
+        address,
+        location,
+      });
+      navigation.navigate("AllPlace");
+    } catch (error) {
+      Alert.alert("Invalid value", "Please type all values and try again");
+    }
   };
   return <PlaceForm handleAddPlaceToList={handleAddPlaceToList} />;
 }

@@ -40,8 +40,10 @@ function ImagePicker({ handleImage }) {
       aspect: [16, 9],
       quality: 0.5,
     });
-    setImageUri(image.assets[0].uri);
-    handleImage(image.assets[0].uri);
+    if (image) {
+      setImageUri(image.assets[0].uri);
+      handleImage(image.assets[0].uri);
+    }
   };
   return (
     <View>
